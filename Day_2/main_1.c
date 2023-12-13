@@ -79,7 +79,7 @@ int main(int argc, char* argv[]){
         colors[2] = 0;
     }
 
-    printf("Here the sum of the IDs : %d", sumId);
+    printf("Here is the sum of the IDs : %d", sumId);
 
     return 0;
 }
