@@ -18,7 +18,7 @@ int main(int argc, char* argv[]){
     }
 
     unsigned int colors[3] = {0, 0, 0}; //0 is red, 1 is green and 2 is blue
-    unsigned int idGame, sumId = 0, numCubes;
+    unsigned int idGame, sumSets = 0, numCubes;
     char colorCube[6], currentChar;
 
     while(!feof(input)){
@@ -63,15 +63,10 @@ int main(int argc, char* argv[]){
             }
         }while(currentChar != '\n' && currentChar != EOF);
 
-        //char temp[3] = "NO";
+        //Make the sum of the set
+        sumSets += colors[0] * colors[1] * colors[2];
 
-        //Check if the game is possible
-        if(colors[0] <= 12 && colors[1] <= 13 && colors[2] <= 14){
-            sumId += idGame;
-            //strcpy(temp, "OK");
-        }
-
-        //printf("Game %d --> red : %d; green : %d; blue %d -- %s\n", idGame, colors[0], colors[1], colors[2], temp);
+        //printf("Game %d --> red : %d; green : %d; blue %d -- %d\n", idGame, colors[0], colors[1], colors[2], (colors[0] * colors[1] * colors[2]));
 
         //Set the values of the array back to zero
         colors[0] = 0;
@@ -79,7 +74,7 @@ int main(int argc, char* argv[]){
         colors[2] = 0;
     }
 
-    printf("Here the sum of the IDs : %d", sumId);
+    printf("Here the sum of the IDs : %d", sumSets);
 
     return 0;
 }
