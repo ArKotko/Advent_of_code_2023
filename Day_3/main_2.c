@@ -45,7 +45,6 @@ int main(int argc, char* argv[]){
             break;
         //Try to find if there are two AND ONLY two numbers around the gear
         digitCount = 0;
-        
         digitPos[0] = 0;
         digitPos[1] = 0;
         //CHARACTER BEFORE THE "GEAR"
