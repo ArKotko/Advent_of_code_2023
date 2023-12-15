@@ -57,6 +57,7 @@ int main(int argc, char* argv[]){
             ++digitCount;
         }
         //CHARACTER AFTER THE "GEAR"
+        //Thanks to the fgetc() just before, the file pointer is already at the right position
         //Check if it is a number
         if(fgetc(input) >= '0' && fgetc(input) <= '9'){
             digitPos[digitCount] = gearPosition + 1;
