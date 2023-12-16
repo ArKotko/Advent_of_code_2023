@@ -168,7 +168,7 @@ int main(int argc, char* argv[]){
     }
     
     //Prints the sum
-    printf("Here is the sum of the gear ratios of the engine : %lld\n", sum);
+    printf("Here is the sum of the gear ratios of the engine :\033[1;34m %lld \033[0m\n", sum);
 
     //Close the file
     fclose(input);
