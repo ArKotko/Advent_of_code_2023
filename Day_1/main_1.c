@@ -45,7 +45,7 @@ int main(int argc, char* argv[]){
         }
     }
 
-    printf("Here is your sum big boy : %ld", sum);
+    printf("Here is your sum big boy : %ld\n", sum);
 
     fclose(input);
 
