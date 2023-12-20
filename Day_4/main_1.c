@@ -5,7 +5,7 @@
 //Linked list for winning numbers
 typedef struct block{
     unsigned int number;
-    struct block* next_node;
+    struct block* next_block;
 }Block;
 
 typedef Block* List;
@@ -17,7 +17,7 @@ Block* createBlock(unsigned int n){
         return NULL;
     }
     newBlock->number = n;
-    newBlock->next_node = NULL;
+    newBlock->next_block = NULL;
     return newBlock;
 }
 
@@ -33,13 +33,24 @@ List addBlock(List yourList, unsigned int n){
     //Goes to the end of the list
     while(yourList){
         previousBlock = yourList;
-        yourList = yourList->next_node;
+        yourList = yourList->next_block;
     }
 
     //Adds the block to the end of the list
-    previousBlock->next_node = createBlock(n);
+    previousBlock->next_block = createBlock(n);
 
     return savedList;
+}
+
+void freeList(List yourList){
+
+    Block* nextBlock;
+
+    while(yourList){
+        nextBlock = yourList->next_block;
+        free(yourList);
+        yourList = nextBlock;
+    }
 }
 
 //BST for our numbers
@@ -111,6 +122,16 @@ unsigned int isKeyInTree(Tree yourTree, unsigned int k){
     return found;
 }
 
+void freeTree(Tree yourTree){
+
+    if(!yourTree)
+        return;
+
+    freeTree(yourTree->left_child);
+    freeTree(yourTree->right_child);
+    free(yourTree);
+}
+
 int main(int argc, char* argv[]){
 
     //Checks the function arguments
@@ -127,9 +148,9 @@ int main(int argc, char* argv[]){
     }
 
     //BST
-    Tree ourTree;
+    Tree ourTree = NULL;
     //Linked list
-    List ourList;
+    List ourList = NULL;
 
     unsigned long long totalSum = 0;
     unsigned int cardSum;
@@ -137,10 +158,6 @@ int main(int argc, char* argv[]){
     char currentChar;
 
     while(1){
-        //Reset the BST and the linked list;
-        ourTree = NULL;
-        ourList = NULL;
-
         //Sees if we are at the end of the file
         if(fgetc(input) == EOF)
             break;
@@ -199,10 +216,17 @@ int main(int argc, char* argv[]){
                     cardSum = cardSum * 2;
             }
             //Goes to the next element in the list
-            ourList = ourList->next_node;
+            ourList = ourList->next_block;
         }
 
         totalSum += cardSum;
+
+        //Free the memory
+        freeList(ourList);
+        freeTree(ourTree);
+        //Reset the BST and the linked list;
+        ourTree = NULL;
+        ourList = NULL;
     }
 
     //Prints the sum
