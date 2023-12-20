@@ -13,7 +13,7 @@ typedef Block* List;
 Block* createBlock(unsigned int n){
     Block* newBlock = (Block*) malloc(sizeof(Block));
     if(!newBlock){
-        printf("Problem encountered while creating the block\n");
+        printf("Problem encountered while creating the block.\n");
         return NULL;
     }
     newBlock->number = n;
@@ -43,7 +43,7 @@ List addBlock(List yourList, unsigned int n){
 }
 
 void freeList(List yourList){
-    
+
     Block* nextBlock;
 
     while(yourList){
@@ -65,7 +65,7 @@ typedef Node* Tree;
 Node* createNode(unsigned int k){
     Node* newNode = (Node*) malloc(sizeof(Node));
     if(!newNode){
-        printf("Problem encountered while creating the node\n");
+        printf("Problem encountered while creating the node.\n");
         return NULL;
     }
     newNode->key = k;
@@ -240,7 +240,7 @@ int main(int argc, char* argv[]){
             ourList = ourList->next_block;
         }
 
-        //Adds all the card we won to the array of cards
+        //Adds all the cards we won to the array of cards
         for(unsigned int i = 1; i <= currentCardScore; ++i){
             if((currentCardId + i) > numberOfCards)
                 break;

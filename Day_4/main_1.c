@@ -13,7 +13,7 @@ typedef Block* List;
 Block* createBlock(unsigned int n){
     Block* newBlock = (Block*) malloc(sizeof(Block));
     if(!newBlock){
-        printf("Problem encountered while creating the block\n");
+        printf("Problem encountered while creating the block.\n");
         return NULL;
     }
     newBlock->number = n;
@@ -65,7 +65,7 @@ typedef Node* Tree;
 Node* createNode(unsigned int k){
     Node* newNode = (Node*) malloc(sizeof(Node));
     if(!newNode){
-        printf("Problem encountered while creating the node\n");
+        printf("Problem encountered while creating the node.\n");
         return NULL;
     }
     newNode->key = k;
