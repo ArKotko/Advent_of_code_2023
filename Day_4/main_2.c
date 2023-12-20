@@ -43,7 +43,7 @@ List addBlock(List yourList, unsigned int n){
 }
 
 void freeList(List yourList){
-
+    
     Block* nextBlock;
 
     while(yourList){
@@ -149,13 +149,35 @@ int main(int argc, char* argv[]){
 
     //BST
     Tree ourTree = NULL;
-    //Linked list
+    //Linked lists
     List ourList = NULL;
 
     unsigned long long totalSum = 0;
-    unsigned int cardSum;
+    unsigned int currentCardScore, currentCardId = -1, numberOfCards = 0;
+    unsigned int* cardArray;
     int currentNumber;
     char currentChar;
+
+    //Goes through all the file and count the number of cards
+    while(1){
+        //Ignores everything except '\n'
+        fscanf(input, "%*[^\n]");
+        //Adds one the number of cards
+        ++numberOfCards;
+        //If we are at the end of the file, stops the loop
+        if(fgetc(input) == EOF)
+            break;
+    }
+
+    //Creates the array of card
+    cardArray = (unsigned int*) malloc(sizeof(unsigned int) * numberOfCards);
+
+    //Fills the array with ones
+    for(unsigned int i = 0; i < numberOfCards; ++i)
+        cardArray[i] = 1;
+
+    //Goes back to the start of the file
+    fseek(input, 0, SEEK_SET);
 
     while(1){
         //Sees if we are at the end of the file
@@ -164,6 +186,8 @@ int main(int argc, char* argv[]){
 
         //Ignores the word "Card" and the number of the card
         fscanf(input, "%*[^:]");
+        //Adds one to the current card id
+        ++currentCardId;
         //Ignores the ":" and then the blankspace
         fgetc(input);
         fgetc(input);
@@ -188,11 +212,11 @@ int main(int argc, char* argv[]){
 
         //Reads and stores all our number
         while(1){
-            //Ignores everything that is not a number or "\n"
+            //Ignores everything that is not a number or '\n'
             fscanf(input, "%*[^0-9\n]");
             //Takes the next char
             currentChar = fgetc(input);
-            //If it is '\n', it is the end of the loop
+            //If it is '\n' or EOF, it is the end of the loop
             if(currentChar == '\n' || currentChar == EOF)
                 break;
             //If it is a number, goes to back to the character before
@@ -204,23 +228,25 @@ int main(int argc, char* argv[]){
             ourTree = addNode(ourTree, currentNumber);
         }
 
-        cardSum = 0;
+        currentCardScore = 0;
 
         //Compares our numbers and the winning numbers
         while(ourList){
             //If the winning number is in our tree of numbers
-            if(isKeyInTree(ourTree, ourList->number)){
-                if(cardSum == 0)
-                    cardSum = 1;
-                else
-                    cardSum = cardSum * 2;
-            }
+            if(isKeyInTree(ourTree, ourList->number))
+                //Adds one to the score of the current card
+                ++currentCardScore;
             //Goes to the next element in the list
             ourList = ourList->next_block;
         }
 
-        totalSum += cardSum;
-
+        //Adds all the card we won to the array of cards
+        for(unsigned int i = 1; i <= currentCardScore; ++i){
+            if((currentCardId + i) > numberOfCards)
+                break;
+            cardArray[currentCardId + i] += cardArray[currentCardId];
+        }
+        
         //Free the memory
         freeList(ourList);
         freeTree(ourTree);
@@ -228,6 +254,10 @@ int main(int argc, char* argv[]){
         ourTree = NULL;
         ourList = NULL;
     }
+
+    //Calculates the total sum
+    for(unsigned int i = 0; i < numberOfCards; ++i)
+        totalSum += cardArray[i];
 
     //Prints the sum
     printf("Here is the sum of the cards :\033[1;34m %lld \033[0m\n", totalSum);
