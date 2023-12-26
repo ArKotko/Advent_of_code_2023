@@ -169,7 +169,7 @@ int main(int argc, char* argv[]){
             else
                 fseek(input, -1, SEEK_CUR);
         }
-        //Adds all the sets that have no matching set in the map to the end of the destination list
+        //Adds all the sets that have no matching set in the map at the end of the destination list
         if(sourceList)
             destList = addBlock(destList, sourceList);
         //Makes the destList the new sourceList
