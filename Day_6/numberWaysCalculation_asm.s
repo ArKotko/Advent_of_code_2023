@@ -9,7 +9,7 @@
 numberWaysCalculation_asm:
 	
 		push    	rbp
-        	mov     	rbp, rsp
+		mov     	rbp, rsp
 		//Calculates the maximum distance that can be travelled
 		push 		rdx
 		mov		rax, rcx //rax = raceTime
