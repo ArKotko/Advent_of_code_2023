@@ -91,7 +91,7 @@ int main(int argc, char* argv[]){
     }
 
     //Prints the number
-    printf("Here is the lowest location number :\033[1;34m %lld \033[0m\n", lowestDestination);
+    printf("Here is the lowest location number : \033[1;34m%lld\033[0m\n", lowestDestination);
 
     return 0;
 }
